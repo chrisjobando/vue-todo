@@ -1,27 +1,61 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div id="app">
+    <Header />
+    <AddTodo v-on:add-todo="addTodo" />
+    <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo" />
+  </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+<script>
+import Todos from './components/Todos.vue';
+import AddTodo from './components/AddTodo.vue';
+import Header from './components/layout/Header.vue';
 
-export default defineComponent({
-  name: "App",
-  components: {
-    HelloWorld
+export default {
+  name: 'App',
+  components: { AddTodo, Header, Todos },
+  data() {
+    return {
+      todos: [
+        { id: 1, title: 'Task One', completed: false },
+        { id: 2, title: 'Task Two', completed: true },
+        { id: 3, title: 'Task Three', completed: false }
+      ]
+    };
+  },
+  methods: {
+    addTodo(newTodo) {
+      this.todos = [...this.todos, newTodo];
+    },
+    deleteTodo(id) {
+      this.todos = this.todos.filter((todo) => todo.id != id);
+    }
   }
-});
+};
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.4;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.btn {
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 7px 20px;
+  background: #555;
+  display: inline-block;
+}
+
+.btn:hover {
+  background: #666;
 }
 </style>
