@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import { v4 as uuidV4 } from 'uuid';
-
 export default {
   name: 'AddTodo',
   data() {
@@ -23,7 +21,6 @@ export default {
 
       if (this.title !== '') {
         const newTodo = {
-          id: uuidV4(),
           completed: false,
           title: this.title
         };
